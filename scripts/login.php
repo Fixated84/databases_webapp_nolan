@@ -17,6 +17,8 @@ if (mysqli_num_rows($result)==1) {
 	session_start();
 	$_SESSION['username']= 'true';
 header('location:employee.php');
+$_SESSION['activeusername'] = $username;
+ 
 
 }else {
  $message = "<br><p>Incorrect Username or Password</p>";

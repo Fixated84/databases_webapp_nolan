@@ -1,5 +1,13 @@
  
+<?php
+ 
+  session_start();
+if (!isset($_SESSION['username'])) {
+ header('location:login.php');
+}
 
+
+?>
 
 
 <!DOCTYPE html>
@@ -194,7 +202,149 @@ localStorage['lastTime2'] = ""+now;
         
         <div class="col-sm-7 col-sm-offset-1 col-lg-offset-1 col-lg-10">
          <hr>
-       <h3 >Welcome to West Coast Autos</h3>  <br>
+       <h3 >Welcome to West Coast Sales</h3>  <br>
+
+<?php
+
+  
+if (!isset($_SESSION['activeusername'])) {
+  
+}else{
+	 
+$activeusername = $_SESSION['activeusername'];
+echo 	$activeusername;
+	
+}
+
+
+?>
+
+<table  class="gridtable">
+  <tr>
+<th>Name</th>
+
+<th>Address</th>
+<th>Phone</th>
+<th>Email</th>
+
+ <!--<th>Password</th>-->
+ <th>Remove</th >
+ <th>Update</th >
+<tr>
+
+
+
+ 
+<?php
+ 
+//if (!isset($_SESSION['activeusername'])) {
+  
+//}else{
+	
+ 
+ 	
+	
+//$activeusername = $_SESSION['activeusername'];
+//echo 	$activeusername;
+	
+//}
+
+ include("connect.php");
+
+$query = "SELECT * FROM Customers WHERE 1 ";
+$result = mysqli_query($con,$query);
+
+ 
+ while ($row = mysqli_fetch_array($result))   :
+
+$firstname = $row['Fullname'];
+ 
+$email = $row['Address'];
+$phone = $row['Phone'];
+$property = $row['Email'];
+ 
+  
+ 
+// echo "<td>".$row['email']."</td>";
+//echo "<td>".$row['phone']."</td>";
+//echo "<td>".$row['username']."</td>";
+
+echo "<tr id=\"tr1\">";
+echo "<td>".$row['Fullname']."</td>";
+echo "<td>".$row['Address']."</td>";
+ echo "<td>".$row['Phone']."</td>";
+ echo "<td>".$row['Email']."</td>";
+ 
+ // echo "<td>".$row['password']."</td>";
+  echo "<td> <input type=\"checkbox\" class=\"case\" name=\"case[]\" value=\"\1\" onclick=\"myfunc(this);\" onChange=\"cbChange(this)\"></td>";
+  echo "<td> <input type=\"checkbox\" class=\"updateinfo\" name=\"updateinfo[]\" value=\"\1\" onclick=\"myfunc(this);\" onChange=\"cbChange(this)\"></td>";
+endwhile;
+    
+	/* <?php $testr = $_POST['testcode']?> */
+	 
+	
+   //  $testr = document.getElementById('test').value;
+   // if( isset( $_POST ["test"] )) $testr = $_POST ["test"];
+	
+	//echo $testr;
+  
+ // $testr = document.getElementById('test').value;
+  
+  
+  //   if(isset($_POST['updatename'])){
+	//	   $testr = $_POST['updatename'];
+ //  echo $testr;
+       // echo("You clicked button update!");
+        //and then execute a sql query here
+ //   $updateQuery =   mysql_query("UPDATE `clients` SET `username` = '".$testr."'");
+// }
+ //   else {
+ //   echo" dhur";
+  //  }
+	
+	
+   
+   if (isset($_POST['updatefullname'])) {
+	   //   echo("You clicked button one!");
+   $fullname  = $_POST['updatefullname'];
+  $address = $_POST['updateaddress'];
+  $phonenum = $_POST['updatephone']; 
+      $emailadd = $_POST['updateemail'];
+  //   $usrname = $_POST['updateusername']; 
+    $help = $_POST['updatehelp']; 
+   
+ // echo $help;
+ 
+ // PRROBLEM MAYBE QUERY LISTING ALL ENTRYS
+ 
+ 
+ $queryupdate = "UPDATE `Customers` SET `Fullname` = '".$fullname."', `Address` = '".$address."', `Phone` = '".$phonenum."', `Email` = '".$emailadd."'  WHERE `Email` = '".$help."'";	 
+
+  
+$updatedb = mysqli_query($con,$queryupdate);
+
+ mysqli_close($con);
+ 
+ 
+   //   $updateQuery =    mysql_query("UPDATE `clients` SET `firstname` = '".$fname."', `lastname` = '".$lname."', `email` = '".$emailadd."', `phone` = '".$phonenum."', `property` = '".$propertys."', `username` = '".$usrname."' WHERE `username` = '".$help."'");
+  
+//  echo "<h1>Hello ".$testr."</h1>";
+    
+  
+// $query = mysql_query("SELECT * FROM clients WHERE username = '".$usrname."'");
+ // while($row = mysql_fetch_array($query)):
+ 
+  
+
+ 
+ 
+//endwhile;
+   } 
+  
+?>
+
+</table><br> 
+
 
 
 </div>

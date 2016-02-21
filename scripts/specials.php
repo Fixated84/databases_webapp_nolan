@@ -348,7 +348,7 @@ $specialprice = $_POST['specialprice'];
   
    
  
- $queryupdate = "UPDATE `vehiclelist` SET `special_price` = '$specialprice'  WHERE `stocknumber` = '$help'";	 
+ $queryupdate = "UPDATE `Vehiclelist` SET `special_price` = '$specialprice'  WHERE `Stocknumber` = '$help'";	 
 
  
 $updatedb = mysqli_query($con,$queryupdate);

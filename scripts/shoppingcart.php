@@ -1,26 +1,19 @@
  <?php
+  
+
+   
+ include('connect.php');
  
-  session_start();
+   session_start();
 if (!isset($_SESSION['username'])) {
  header('location:login.php');
 }
-  include("connect.php");
 
- 
-   if($_POST) {
- $email = $_POST['email'];
- 
-$queryremove = "DELETE FROM Customers WHERE (`email` = '$email')";	 
+   
 
-  
-$updatedb = mysqli_query($con,$queryremove);
 
- mysqli_close($con);
- 
-  }
  
  ?>
-
 
 
 <!DOCTYPE html>
@@ -31,44 +24,38 @@ $updatedb = mysqli_query($con,$queryremove);
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="../images/icon.ico">
 
+   
  
- 
-
     <title>West Coast Auto</title>
     <!-- Bootstrap -->
   <link href="../css/bootstrap.css" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">
+  
   
   <script type='text/javascript'>//<![CDATA[ 
 window.onload=function(){
 var btns = document.querySelectorAll('.case')   ,
 
        
-	     emailaddr = document.querySelector('.emailaddr')   
-		 
-		 
-		 
-	//	 update = document.querySelector('.update')   
-		// phone = document.querySelector('$test') 
-		 
-	 ;
+	     emailaddr = document.querySelector('.emailaddr')  ; 
+  
 
 // looping through the nodelist and attaching eventlisteners
 [].forEach.call(btns, function(btn) {
     btn.addEventListener('click', function(event) {
         // fetching the phone number
     //    var selectedPhone = email.value;
-	       var selectedPhone = event.target.parentNode.previousSibling.textContent; 
+	       var selectedPhone = event.target.parentNode.previousSibling.previousSibling.textContent;
 	 
     //var test = document.getElementById('firstname').value
 	
 	// var test = event.target.parentNode.previousSibling.textContent;
   
-      emailaddr.value = selectedPhone    ; //setting the value
+       emailaddr.value = selectedPhone    ; //setting the value
 	  
 	 // update.value =  test;
 	  
-	//  alert(selectedPhone);
+	//    alert(selectedPhone);
 	   
 	 	 
 		 
@@ -78,6 +65,83 @@ var btns = document.querySelectorAll('.case')   ,
 }//]]>  
  
 </script>
+ 
+  <!-- <script>
+window.onorientationchange = function() { location.reload() };
+</script>-->
+
+<script>
+function showSalesperson(str) {
+    if (str == "") {
+        document.getElementById("txtHintSalesperson").innerHTML = "";
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHintSalesperson").innerHTML = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","getsalesperson.php?q="+str,true);
+        xmlhttp.send();
+    }
+}
+</script>
+
+<script>
+function showCustomer(str) {
+    if (str == "") {
+        document.getElementById("txtHintCustomers").innerHTML = "";
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHintCustomers").innerHTML = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","getcustomers.php?q="+str,true);
+        xmlhttp.send();
+    }
+}
+</script>
+
+<script>
+function showVehicle(str) {
+    if (str == "") {
+        document.getElementById("txtHintVehicle").innerHTML = "";
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHintVehicle").innerHTML = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","getvehicle.php?q="+str,true);
+        xmlhttp.send();
+    }
+}
+</script>
+
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -85,6 +149,9 @@ var btns = document.querySelectorAll('.case')   ,
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
   </head>
+  
+  
+  
   <body>
   
    <!--Testing Fix Nav with navbar-fixed-top-->
@@ -183,7 +250,7 @@ var btns = document.querySelectorAll('.case')   ,
           <div class="collapse navbar-collapse" id="defaultNavbar1">
             <ul class="nav navbar-nav hello">
             
-              <li ><a href="../index.html">Home<span class="sr-only">(current)</span></a></li>
+              <li ><a href="#">Home<span class="sr-only">(current)</span></a></li>
  
  
   
@@ -225,190 +292,260 @@ var btns = document.querySelectorAll('.case')   ,
     </div>
     <div class="row">
         
-        <div class="col-sm-7 col-sm-offset-1 col-lg-offset-1 col-lg-10">
+      <div class="col-sm-7 col-sm-offset-1 col-lg-offset-1 col-lg-10">
          <hr>
-       <h3 >Welcome to West Coast Autos</h3>  <br>
+       <h3 >West Coast Auto Shopping Cart</h3>  <br>
+       
+      <SCRIPT type="text/javascript">
+function goToPage(url)
+{
+var initial = "http://localhost/php/removesalesperson";
+var extension = ".php?email=";
 
-
-<table  class="gridtable">
-  <tr>
-<th>Name</th>
-
-<th>Address</th>
-<th>Phone</th>
-<th>Email</th>
-
- <!--<th>Password</th>-->
- <th>Remove</th >
- <th>Update</th >
-<tr>
+document.something.action=initial+extension+url;
+}
+</SCRIPT>
 
 
 
- 
-<?php
- 
-//if (!isset($_SESSION['activeusername'])) {
+      <div class="row">
+      
+        <div class="col-lg-offset-0 col-lg-12">  
+<form>
+Salesperson:<br>
+
+ <br>
+
+
+
+<!-- <select name="users"  onChange="showSalesperson(this.value)">
+  <option value="">Select a salesperson:</option> -->
+  <?php 
   
-//}else{
-	
- 
- 	
-	
-//$activeusername = $_SESSION['activeusername'];
+  if (!isset($_SESSION['activeusername'])) {
+  
+}else{
+	 
+$activeusername = $_SESSION['activeusername'];
 //echo 	$activeusername;
 	
-//}
 
- include("connect.php");
+  
+ $query = "SELECT * FROM Salespersons WHERE Username = '$activeusername' ";
+$result = mysqli_query($con,$query);
+
+ 
+ //while ($row = mysqli_fetch_array($result)) {
+ //echo "<option value=\"".$row['idSalespersons']."\">".$row['Fullname']."</option>";
+ 
+ echo "<table class=\"gridtable\">
+<tr>
+<th>Name</th>
+<th>Salesperson ID</th> 
+<th>Phone</th> 
+<th>Email</th>  
+</tr>";
+while($row = mysqli_fetch_array($result)) {
+    echo "<tr>";
+    echo "<td>" . $row['Fullname'] . "</td>";
+    echo "<td>" . $row['idSalespersons'] . "</td>"; 
+    echo "<td>" . $row['Phone'] . "</td>";
+    echo "<td>" . $row['Email'] . "</td>";
+    echo "</tr>";
+}
+echo "</table>";
+ 
+ 
+ 
+} 
+?>
+
+  </select 
+</form>
+<br>
+<br>
+<div id="txtHintSalesperson"><b> </b></div>
+	  
+    <br><br>
+      
+      </div>
+          <div class="col-lg-offset-0 col-lg-12"> 
+          
+           
+<form>
+Customers:<br>
+<br>
+<select name="users" onchange="showCustomer(this.value)">
+<option value="">Select a customer:</option>
+<?php 
+
 
 $query = "SELECT * FROM Customers WHERE 1 ";
 $result = mysqli_query($con,$query);
 
  
- while ($row = mysqli_fetch_array($result))   :
+ while ($row = mysqli_fetch_array($result)){
+echo "<option value=\"".$row['idCustomers']."\">".$row['Fullname']."</option>";
+}
+?> 
 
-$firstname = $row['Fullname'];
- 
-$email = $row['Address'];
-$phone = $row['Phone'];
-$property = $row['Email'];
- 
-  
- 
-// echo "<td>".$row['email']."</td>";
-//echo "<td>".$row['phone']."</td>";
-//echo "<td>".$row['username']."</td>";
-
-echo "<tr id=\"tr1\">";
-echo "<td>".$row['Fullname']."</td>";
-echo "<td>".$row['Address']."</td>";
- echo "<td>".$row['Phone']."</td>";
- echo "<td>".$row['Email']."</td>";
- 
- // echo "<td>".$row['password']."</td>";
-  echo "<td> <input type=\"checkbox\" class=\"case\" name=\"case[]\" value=\"\1\" onclick=\"myfunc(this);\" onChange=\"cbChange(this)\"></td>";
-  echo "<td> <input type=\"checkbox\" class=\"updateinfo\" name=\"updateinfo[]\" value=\"\1\" onclick=\"myfunc(this);\" onChange=\"cbChange(this)\"></td>";
-endwhile;
-    
-	/* <?php $testr = $_POST['testcode']?> */
-	 
-	
-   //  $testr = document.getElementById('test').value;
-   // if( isset( $_POST ["test"] )) $testr = $_POST ["test"];
-	
-	//echo $testr;
-  
- // $testr = document.getElementById('test').value;
-  
-  
-  //   if(isset($_POST['updatename'])){
-	//	   $testr = $_POST['updatename'];
- //  echo $testr;
-       // echo("You clicked button update!");
-        //and then execute a sql query here
- //   $updateQuery =   mysql_query("UPDATE `clients` SET `username` = '".$testr."'");
-// }
- //   else {
- //   echo" dhur";
-  //  }
-	
-	
-   
-   if (isset($_POST['updatefullname'])) {
-	   //   echo("You clicked button one!");
-   $fullname  = $_POST['updatefullname'];
-  $address = $_POST['updateaddress'];
-  $phonenum = $_POST['updatephone']; 
-      $emailadd = $_POST['updateemail'];
-  //   $usrname = $_POST['updateusername']; 
-    $help = $_POST['updatehelp']; 
-   
- // echo $help;
- 
- // PRROBLEM MAYBE QUERY LISTING ALL ENTRYS
- 
- 
- $queryupdate = "UPDATE `Customers` SET `Fullname` = '".$fullname."', `Address` = '".$address."', `Phone` = '".$phonenum."', `Email` = '".$emailadd."'  WHERE `Email` = '".$help."'";	 
-
-  
-$updatedb = mysqli_query($con,$queryupdate);
-
- mysqli_close($con);
- 
- 
-   //   $updateQuery =    mysql_query("UPDATE `clients` SET `firstname` = '".$fname."', `lastname` = '".$lname."', `email` = '".$emailadd."', `phone` = '".$phonenum."', `property` = '".$propertys."', `username` = '".$usrname."' WHERE `username` = '".$help."'");
-  
-//  echo "<h1>Hello ".$testr."</h1>";
-    
-  
-// $query = mysql_query("SELECT * FROM clients WHERE username = '".$usrname."'");
- // while($row = mysql_fetch_array($query)):
- 
-  
-
- 
- 
-//endwhile;
-   } 
-  
-?>
-
-</table><br> 
-
- 
- 
-<div class="col-sm-3 col-md-9 col-md-offset-2 col-lg-offset-4 col-lg-5">
-
- 
-
-<form  class="hideupdate"   method="post">
-  <fieldset class="account-info" >
-Full Name: <input type="text" name="updatefullname" class="updatefullname">
-<br>
-Address: <input type="text" name="updateaddress" class="updateaddress"> 
-<br>
-
-Phone: <input type="text" name="updatephone" class="updatephone">
-<br>
-Email: <input type="text" name="updateemail" class="updateemail">
-<br>
-<!--Property: <input type="text" name="updateproperty" class="updateproperty">-->
- 
-
-
- <input type="hidden" name="updatehelp" class="updatehelp">  
- 
-  </fieldset>
-<br>
-<!--Password: <input type="text" name="updatepassword" class="updatepassword"> -->
-<!--<input type="submit">--> 
-
-     <button type="submit" class="btn btn-sm btn-default center-block" >Submit</button>
-     <br>
+ <!-- <option value="">Select a customer:</option>
+  <option value="1">Peter Griffin</option>
+  <option value="2">Lois Griffin</option>
+  <option value="3">Joseph Swanson</option>
+  <option value="4">Glenn Quagmire</option>-->
+  </select>
 </form>
-<br><br>
-</div> 
- <br>
- 
-<FORM name="something" method="post">
-  
-  <div class="col-sm-3 col-md-9 col-md-offset-2 col-lg-6 col-lg-offset-4">
-  <button type="button" class="btn btn-sm btn-default ce" onClick="window.location.href='addcustomers.php'" value="Log Out">Add</button> 
-    
-         <INPUT type="hidden"  id="hello1" name="email"  class="emailaddr" >
-       <!--  <button type="submit"  name="url" class="btn btn-sm btn-default emailaddr" >Remove</button>-->
-        <INPUT type="submit" value="Remove" class="btn btn-sm btn-default">
- <button type="button"  name="goback" onClick="window.location.href='employee.php'" class="btn btn-sm btn-default" >Go Back</button>
-         
-         <button type="button" class="btn btn-sm btn-default" onClick="window.location.href='employee.php?logout=1'" value="Log Out">Logout</button>      
-   </div>     
- </FORM>    
+<br>
+<br>
+<div id="txtHintCustomers"><strong>Customer info will be listed here...</strong></div>    
+          
+          
+          
+<!--     <form method="post" action-"#">
+     <br>
+   <input type="text" name="search" value="<?php echo isset($_POST['search']) ? $_POST['search'] : '' ?>" />
+    <br><br>
+       <input type="submit" value="Search" name="submit" class="btn btn-sm btn-default center-block">
+<br>
+     </form>	
      
-</div>
- 
-        </div>
+     
+   <table  class="gridtable">
+  <tr>
+  <th>Customer</th>
+   <tr> -->  
+   <?php
+	/* if(isset($_POST['search'])) {
+	 		  
+   $fullname = $_POST['search'];
+   
+$query = mysql_query("SELECT * FROM customers WHERE `name` LIKE '%$fullname%' ");
+ while($row = mysql_fetch_array($query)):
+
   
+echo "<tr id=\"tr1\">";
+echo "<td>".$row['name']."</td>";
+  endwhile;	 
+			 
+			 
+	 }	*/  
+ 	 ?>
+ 
+ </tr>
+ </tr>
+ </table>
+ </div> 
+          
+      <!--  <div class="col-lg-offset-0 col-lg-3"> 
+          
+         
+          
+          
+            </div> -->
+        </div>
+      <div class="row">
+        <div class="col-lg-12 center-block"> 
+        <br><br>
+   <form>
+   Vehicles:<br>
+<select name="users" onchange="showVehicle(this.value)">
+<option value="">Select a vehicle:</option>
+<?php 
+ 
+
+
+$query = "SELECT * FROM Vehiclelist WHERE 1 ";
+$result = mysqli_query($con,$query);
+
+ 
+ while ($row = mysqli_fetch_array($result)){
+echo "<option value=\"".$row['Stocknumber']."\">".$row['Year']. ' ' .$row['Manufacturer'].' '.$row['Model']."</option>";
+}
+?> 
+
+ <!-- <option value="">Select a customer:</option>
+  <option value="1">Peter Griffin</option>
+  <option value="2">Lois Griffin</option>
+  <option value="3">Joseph Swanson</option>
+  <option value="4">Glenn Quagmire</option>-->
+  </select>
+</form>
+<br>
+<div id="txtHintVehicle" class="center-block"><strong>Vehicle info will be listed here...</strong></div>      
+        
+       <!-- <br><br>
+        <table  class="gridtable">
+  <tr>
+<th>Stock No</th>
+ <th>Manufacturer</th>
+<th>Model</th>
+ <th>Category</th>
+<th>Year</th>
+<th>Price</th>
+<th>Kilometres</th>
+<th>Colour</th>
+<th>Registration</th> 
+<th>VIN</th> 
+<th>Cylinders</th> 
+<th>Fuel</th> 
+<th>Transmission</th>  
+   <tr>
+-->
+ <?php
+//include('database.php');
+
+  
+//$query = mysql_query("SELECT * FROM `vehiclelist`");
+
+ //while($row = mysql_fetch_array($query)):
+
+  
+ 
+/*echo "<tr id=\"tr1\">";
+echo "<td>".$row['stocknumber']."</td>";
+echo "<td>".$row['manufacturer']."</td>";
+echo "<td>".$row['model']."</td>";
+echo "<td>".$row['category']."</td>";
+echo "<td>".$row['year']."</td>";
+echo "<td>".$row['price']."</td>";
+echo "<td>".$row['kilometres']."</td>";
+echo "<td>".$row['colour']."</td>";
+echo "<td>".$row['registration']."</td>";
+echo "<td>".$row['vin']."</td>";
+echo "<td>".$row['cylinders']."</td>";
+echo "<td>".$row['fuel']."</td>";
+echo "<td>".$row['transmission']."</td>";
+  endwhile;
+*/
+
+	 ?>
+  <!--</table><br>  -->
+        </div>
+    
+      </div>
+      
+
+ 
+<!--    <div class="col-sm-3 col-md-9 col-md-offset-2 col-lg-offset-4 col-lg-3">  
+     <button type="button" class="btn btn-sm btn-default" onClick="window.location.href='password_protect_admin.php?logout=1'" value="Log Out">Logout</button>  
+        
+  <!-- <input type="submit" value=" Enter " name="submit" class="btn btn-sm btn-default center-block"> 
+   
+   <form  class="hideupdate"    method="post">
+ 
+  </form> 
+<br>
+</div> -->
+
+
+<br>   
+      
+          
+</div>
+</div>
+</div>
+    
       <hr>
         <div class="row center-block">
     <div class="text-center col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-0 hello">
@@ -426,17 +563,23 @@ Email: <input type="text" name="updateemail" class="updateemail">
 	<script src="../js/jquery-1.11.2.min.js"></script>
 
 	<!-- Include all compiled plugins (below), or include individual files as needed --> 
-	<script src="../js/bootstrap.js"></script>
-    	<script src="../js/bootstrap.js"></script>
     
-      <script type="text/javascript">
+       
+    
+    
+	<script src="../js/bootstrap.js"></script>
+    
+    
+   <script type="text/javascript">
+	  
 	   
+	  
      $('.updateinfo').click(function(event) {
 		 
 	$('.hideupdate').toggle();
-	 
  
-	 // var menu = "hide"; 
+		 
+	// var menu = "hide"; 
   
 	// if (menu == "hide") {
 	// $('.hideupdate').css('display', 'block');
@@ -454,10 +597,11 @@ Email: <input type="text" name="updateemail" class="updateemail">
 	 //  }
  
 	   
-	  fullname = document.querySelector('.updatefullname'),
-	  address = document.querySelector('.updateaddress') ,
-	  phonenumber = document.querySelector('.updatephone') ,
-      email = document.querySelector('.updateemail') ,
+	  firstname = document.querySelector('.updatefirstname'),
+	  lastname = document.querySelector('.updatelastname') ,
+	  email = document.querySelector('.updateemail') ,
+      phonenumber = document.querySelector('.updatephone') ,
+	  property = document.querySelector('.updateproperty') ;
 	  username = document.querySelector('.updateusername') ;
 	  
 	  updatehelp = document.querySelector('.updatehelp') ;  
@@ -465,37 +609,38 @@ Email: <input type="text" name="updateemail" class="updateemail">
 		 // phone = document.querySelector('$testr') 
 		       
 			    var select1 = event.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.textContent; 
-		
-				var select2 = event.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent; 
+			  //  var select2 = event.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.textContent; 
 				
-		      var select3 = event.target.parentNode.previousSibling.previousSibling.textContent; 
-			  
-			    var select4 = event.target.parentNode.previousSibling.previousSibling.previousSibling.textContent; 
+		       var select3 = event.target.parentNode.previousSibling.previousSibling.previousSibling.textContent;
 			   
-			//  var select5 = event.target.parentNode.previousSibling.previousSibling.previousSibling.textContent; 
+			   var select4 = event.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent; 
+			   
+			//   var select5 = event.target.parentNode.previousSibling.previousSibling.previousSibling.textContent; 
 
-			  //   var select6 = event.target.parentNode.previousSibling.previousSibling.textContent; 
+			     var select6 = event.target.parentNode.previousSibling.previousSibling.textContent; 
 				 
-		 //	  var select7 = event.target.parentNode.previousSibling.previousSibling.textContent;
-				// updatehelp
+				  var select7 = event.target.parentNode.previousSibling.previousSibling.textContent;
+				 updatehelp
 				 
 				//   var select7 = event.target.parentNode.previousSibling.previousSibling.textContent; 
 			  
-		fullname.value =  select1 ;
-	 	address.value =  select2 ;
-	 	email.value =  select3 ;
- 	   phonenumber.value = select4;
-	 	 
-		 
-     	 updatehelp.value = select3;
-		//  alert(select1);
+		firstname.value =  select1 ;
+phonenumber.value = select4;
+		email.value =  select3 ;
+ 	
+ 
+		username.value = select6;
+     	 updatehelp.value = select7;
+		 //  alert(select7);
 			  
     
 		 
  
       
     });
-   </script>  
+   </script>      
+    
+    
     <script type="text/javascript">
 $(document).ready(function() {
 	
