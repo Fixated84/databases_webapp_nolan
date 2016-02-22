@@ -1,108 +1,19 @@
-<?php
- include("connect.php");	 
- session_start();
+ <?php
+  
+
+   
+ include('connect.php');
+ 
+   session_start();
 if (!isset($_SESSION['username'])) {
  header('location:login.php');
 }
- 
-$message = "<br><p></p><br>";
- $salepersonidErr = $customeridErr = $vehicleidErr = $error = "<p></p>";
- 
- 
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
- 
- 
-  
-  
- $error = false; 	 
-if (empty($_POST["salespersonid"])) {
-	$salespersonid = "";
-	
-$salepersonidErr = "<p class=\"animated bounce red\">Salesperon is Required.</p>";
- 
-$error = true;
- 
-}else{ 
- 
-$salespersonid = test_input($_POST["salespersonid"]);
-if (!preg_match("/^[0-9]*$/",$salespersonid)) {
-      $salepersonidErr = "<p class=\"animated bounce red\">Salesperon requires numbers only</p>"; 
-      $error = true;
-	  
-	 echo $salespersonid ;
- 	
-}
-}
-if (empty($_POST["customerid"])) {
-	$customerid = "";
-$customeridErr = "<p class=\"animated bounce red\">Customer is Required</p>";
-$error = true;
- 
-} else {
+
+   
 
 
-$customerid = test_input($_POST["customerid"]);	
-if (!preg_match("/^[a-zA-Z0-9 ]*$/",$customerid)) {
-      $customeridErr = "<p class=\"animated bounce red\">>Customer requires numbers only</p>"; 
-      $error = true;
-	 
  
-}
-} 
-if (empty($_POST["vehicleid"])) {
-	$vehicleid = "";
-$vehicleidErr = "<p class=\"animated bounce red\">Vehicle is Required.</p>";
- 
-$error = true;
- 
-}else{ 
-
-$vehicleid = test_input($_POST["vehicleid"]);
-if (!preg_match("/^[0-9 ]*$/",$vehicleid)) {
-      $vehicleidErr = "<p class=\"animated bounce red\">Vehicle stocknumber requires numbers only</p>"; 
-      $error = true;
-	  
-	 
- 
-}
-}
- 
- } 
-  if (!$error) {
- 
-
- include("connect.php");
- 
- $date=date('y.m.d');
- 
-$queryadd = "INSERT INTO Shoppingcart (`Stocknumber` ,`idCustomers`,`idSalespersons`,`Date`)
-VALUES ('$vehicleid', '$customerid','$salespersonid','$date')";
- 
-$updatedb = mysqli_query($con,$queryadd);
-
-  mysqli_close($con);
-
- if ($updatedb) {
-	 $message = "";
- $message = "<br><p class=\"animated bounce green\">You have been successfully added to the mailing list.</p>" ;
-
- }else{
-	 $message = "";
-   $message = "<br><p class=\"animated bounce red\"> Your information could not be added to the mailing list.</p>";
-
-} 
- 
-
- }  
- function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
- 
- }  
-
-?>
+ ?>
 
 
 <!DOCTYPE html>
@@ -121,9 +32,115 @@ $updatedb = mysqli_query($con,$queryadd);
   <link href="../css/style.css" rel="stylesheet">
   
   
-   
- 
+  <script type='text/javascript'>//<![CDATA[ 
+window.onload=function(){
+var btns = document.querySelectorAll('.case')   ,
+
+       
+	     emailaddr = document.querySelector('.emailaddr')  ; 
   
+
+// looping through the nodelist and attaching eventlisteners
+[].forEach.call(btns, function(btn) {
+    btn.addEventListener('click', function(event) {
+        // fetching the phone number
+    //    var selectedPhone = email.value;
+	       var selectedPhone = event.target.parentNode.previousSibling.previousSibling.textContent;
+	 
+    //var test = document.getElementById('firstname').value
+	
+	// var test = event.target.parentNode.previousSibling.textContent;
+  
+       emailaddr.value = selectedPhone    ; //setting the value
+	  
+	 // update.value =  test;
+	  
+	//    alert(selectedPhone);
+	   
+	 	 
+		 
+    }, false);
+	
+}); 
+}//]]>  
+ 
+</script>
+ 
+  <!-- <script>
+window.onorientationchange = function() { location.reload() };
+</script>-->
+
+<script>
+function showSalesperson(str) {
+    if (str == "") {
+        document.getElementById("txtHintSalesperson").innerHTML = "";
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHintSalesperson").innerHTML = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","getsalesperson.php?q="+str,true);
+        xmlhttp.send();
+    }
+}
+</script>
+
+<script>
+function showCustomer(str) {
+    if (str == "") {
+        document.getElementById("txtHintCustomers").innerHTML = "";
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHintCustomers").innerHTML = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","getcustomers.php?q="+str,true);
+        xmlhttp.send();
+    }
+}
+</script>
+
+<script>
+function showVehicle(str) {
+    if (str == "") {
+        document.getElementById("txtHintVehicle").innerHTML = "";
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHintVehicle").innerHTML = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","getvehicle.php?q="+str,true);
+        xmlhttp.send();
+    }
+}
+</script>
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -278,16 +295,23 @@ $updatedb = mysqli_query($con,$queryadd);
       <div class="col-sm-7 col-sm-offset-1 col-lg-offset-1 col-lg-10">
          <hr>
        <h3 >West Coast Auto Shopping Cart</h3>  <br>
- 
+       
+      <SCRIPT type="text/javascript">
+function goToPage(url)
+{
+var initial = "http://localhost/php/removesalesperson";
+var extension = ".php?email=";
+
+document.something.action=initial+extension+url;
+}
+</SCRIPT>
 
 
 
       <div class="row">
       
         <div class="col-lg-offset-0 col-lg-12">  
-        
-    <form class="loginformnew"   method="post">
-  <fieldset class="account-info" >
+<form>
 Salesperson:<br>
 
  <br>
@@ -297,7 +321,7 @@ Salesperson:<br>
 <!-- <select name="users"  onChange="showSalesperson(this.value)">
   <option value="">Select a salesperson:</option> -->
   <?php 
-   include("connect.php");	 
+  
   if (!isset($_SESSION['activeusername'])) {
   
 }else{
@@ -316,35 +340,42 @@ $result = mysqli_query($con,$query);
  
  echo "<table class=\"gridtable\">
 <tr>
-<th>Salesperson ID</th> 
 <th>Name</th>
+<th>Salesperson ID</th> 
 <th>Phone</th> 
 <th>Email</th>  
 </tr>";
 while($row = mysqli_fetch_array($result)) {
     echo "<tr>";
+    echo "<td>" . $row['Fullname'] . "</td>";
     echo "<td>" . $row['idSalespersons'] . "</td>"; 
-	    echo "<td>" . $row['Fullname'] . "</td>";
-
     echo "<td>" . $row['Phone'] . "</td>";
     echo "<td>" . $row['Email'] . "</td>";
     echo "</tr>";
-
+}
 echo "</table>";
  
  
- echo "<input  type=\"hidden\"  name=\"salespersonid\" value=".$row['idSalespersons']."> ";
-} }
+ 
+} 
 ?>
- 
- 
-  
+
+  </select 
+></form>
 <br>
 <br>
- 
+<div id="txtHintSalesperson"><b> </b></div>
+	  
+    
+      
+      </div>
+          <div class="col-lg-offset-0 col-lg-12"> 
+          
+           
+<form>
 Customers:<br>
 <br>
-<select name="customerid">
+<select name="users" onchange="showCustomer(this.value)">
 <option value="">Select a customer:</option>
 <?php 
 
@@ -360,14 +391,61 @@ echo "<option value=\"".$row['idCustomers']."\">".$row['Fullname']."</option>";
 
 
   </select>
- 
+</form>
 <br>
 <br>
+<div id="txtHintCustomers"><strong>Customer info will be listed here...</strong></div>    
           
- 
+          
+          
+<!--     <form method="post" action-"#">
+     <br>
+   <input type="text" name="search" value="<?php echo isset($_POST['search']) ? $_POST['search'] : '' ?>" />
+    <br><br>
+       <input type="submit" value="Search" name="submit" class="btn btn-sm btn-default center-block">
+<br>
+     </form>	
+     
+     
+   <table  class="gridtable">
+  <tr>
+  <th>Customer</th>
+   <tr> -->  
+   <?php
+	/* if(isset($_POST['search'])) {
+	 		  
+   $fullname = $_POST['search'];
    
+$query = mysql_query("SELECT * FROM customers WHERE `name` LIKE '%$fullname%' ");
+ while($row = mysql_fetch_array($query)):
+
+  
+echo "<tr id=\"tr1\">";
+echo "<td>".$row['name']."</td>";
+  endwhile;	 
+			 
+			 
+	 }	*/  
+ 	 ?>
+ 
+ </tr>
+ </tr>
+ </table>
+ </div> 
+          
+      <!--  <div class="col-lg-offset-0 col-lg-3"> 
+          
+         
+          
+          
+            </div> -->
+        </div>
+      <div class="row">
+        <div class="col-lg-12 center-block"> 
+        <br><br>
+   <form>
    Vehicles:<br>
-<select name="vehicleid">
+<select name="users" onchange="showVehicle(this.value)">
 <option value="">Select a vehicle:</option>
 <?php 
  
@@ -381,37 +459,91 @@ $result = mysqli_query($con,$query);
 echo "<option value=\"".$row['Stocknumber']."\">".$row['Year']. ' ' .$row['Manufacturer'].' '.$row['Model']."</option>";
 }
 ?> 
- 
+
+ <!-- <option value="">Select a customer:</option>
+  <option value="1">Peter Griffin</option>
+  <option value="2">Lois Griffin</option>
+  <option value="3">Joseph Swanson</option>
+  <option value="4">Glenn Quagmire</option>-->
   </select>
-  <br>
-  </fieldset>
-  <br><br>
-    <fieldset class="account-action" >
-    <input type="submit" value="Submit" name="submit" class="btn left">
+</form>
+<br>
+<div id="txtHintVehicle" class="center-block"><strong>Vehicle info will be listed here...</strong></div>      
+        
+       <!-- <br><br>
+        <table  class="gridtable">
+  <tr>
+<th>Stock No</th>
+ <th>Manufacturer</th>
+<th>Model</th>
+ <th>Category</th>
+<th>Year</th>
+<th>Price</th>
+<th>Kilometres</th>
+<th>Colour</th>
+<th>Registration</th> 
+<th>VIN</th> 
+<th>Cylinders</th> 
+<th>Fuel</th> 
+<th>Transmission</th>  
+   <tr>
+-->
+ <?php
+//include('database.php');
+
   
-  <input type="button" value="Go Back"  onClick="window.location.href='customers.php'" class="btn right">
-     
-  </fieldset>  
- 
-      
-  </form>
+//$query = mysql_query("SELECT * FROM `vehiclelist`");
+
+ //while($row = mysql_fetch_array($query)):
+
   
-  <?php
  
- // shows errors
-  
-	 echo $message;
- echo $salepersonidErr .  $customeridErr . $vehicleidErr ;
- 
-?>
+/*echo "<tr id=\"tr1\">";
+echo "<td>".$row['stocknumber']."</td>";
+echo "<td>".$row['manufacturer']."</td>";
+echo "<td>".$row['model']."</td>";
+echo "<td>".$row['category']."</td>";
+echo "<td>".$row['year']."</td>";
+echo "<td>".$row['price']."</td>";
+echo "<td>".$row['kilometres']."</td>";
+echo "<td>".$row['colour']."</td>";
+echo "<td>".$row['registration']."</td>";
+echo "<td>".$row['vin']."</td>";
+echo "<td>".$row['cylinders']."</td>";
+echo "<td>".$row['fuel']."</td>";
+echo "<td>".$row['transmission']."</td>";
+  endwhile;
+*/
+
+	 ?>
+  <!--</table><br>  -->
+        </div>
     
+      </div>
       
-</div>   
-</div>
+
  
+<!--    <div class="col-sm-3 col-md-9 col-md-offset-2 col-lg-offset-4 col-lg-3">  
+     <button type="button" class="btn btn-sm btn-default" onClick="window.location.href='password_protect_admin.php?logout=1'" value="Log Out">Logout</button>  
+        
+  <!-- <input type="submit" value=" Enter " name="submit" class="btn btn-sm btn-default center-block"> 
+   
+   <form  class="hideupdate"    method="post">
+ 
+  </form> 
+<br>
+</div> -->
+
+
+<br>   
+      
+          
+</div>
+</div>
+</div>
+    
       <hr>
         <div class="row center-block">
-         <br><br><br>
     <div class="text-center col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-0 hello">
       
       <p>Copyright &copy; 2015 &middot; All Rights Reserved &middot; <a href="index.html" >Home</a> | <a href="pages/privacy.html" >Privacy Policy</a>  </p>

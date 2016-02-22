@@ -1,13 +1,26 @@
- 
-<?php
+ <?php
  
   session_start();
 if (!isset($_SESSION['username'])) {
  header('location:login.php');
 }
+  include("connect.php");
 
+ 
+   if($_POST) {
+ $stocknum = $_POST['sales'];
+ 
+$queryremove = "DELETE FROM Shoppingcart WHERE (`Stocknumber` = '$stocknum')";	 
 
-?>
+  
+$updatedb = mysqli_query($con,$queryremove);
+
+ mysqli_close($con);
+ 
+  }
+ 
+ ?>
+
 
 
 <!DOCTYPE html>
@@ -18,41 +31,53 @@ if (!isset($_SESSION['username'])) {
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="../images/icon.ico">
 
-<!--<script type="text/javascript">
-jQuery(document).ready(function($){
- 
-if (sessionStorage.getItem('RockrollOnce') !== 'true') {
-<!--$('body').append('<body>')
-    $("body").removeAttr("onLoad");
-sessionStorage.setItem('RockrollOnce','true');
-}
  
  
- 
-});
-</script>-->
-	<script src="../js/jquery-1.11.2.min.js"></script>
-<script type="text/javascript">//<![CDATA[
-$(document).ready(function() {
-var now = (new Date()).getTime();
-var lastTime = 0;
-var lastTimeStr = localStorage['lastTime2'];
-if (lastTimeStr) lastTime = parseInt(lastTimeStr, 30);
-if (now - lastTime > 1*60*1000) {
-// alert("I am an alert box!");
-  //  $("body").removeAttr("onLoad");
-  //$("body").
-   $("body").attr("onLoad","$('#myModal').modal('show');");
-} 
-localStorage['lastTime2'] = ""+now;
-});//]]> 
-
-</script>
 
     <title>West Coast Auto</title>
     <!-- Bootstrap -->
   <link href="../css/bootstrap.css" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">
+  
+  <script type='text/javascript'>//<![CDATA[ 
+window.onload=function(){
+var btns = document.querySelectorAll('.case')   ,
+
+       
+	     emailaddr = document.querySelector('.emailaddr')   
+		 
+		 
+		 
+	//	 update = document.querySelector('.update')   
+		// phone = document.querySelector('$test') 
+		 
+	 ;
+
+// looping through the nodelist and attaching eventlisteners
+[].forEach.call(btns, function(btn) {
+    btn.addEventListener('click', function(event) {
+        // fetching the phone number
+    //    var selectedPhone = email.value;
+	       var selectedPhone = event.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent; 
+	 
+    //var test = document.getElementById('firstname').value
+	
+	// var test = event.target.parentNode.previousSibling.textContent;
+  
+      emailaddr.value = selectedPhone    ; //setting the value
+	  
+	 // update.value =  test;
+	  
+	 // alert(selectedPhone);
+	   
+	 	 
+		 
+    }, false);
+	
+}); 
+}//]]>  
+ 
+</script>
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -60,7 +85,7 @@ localStorage['lastTime2'] = ""+now;
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
   </head>
-  <body onLoad="" >
+  <body>
   
    <!--Testing Fix Nav with navbar-fixed-top-->
   <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -202,161 +227,85 @@ localStorage['lastTime2'] = ""+now;
         
         <div class="col-sm-7 col-sm-offset-1 col-lg-offset-1 col-lg-10">
          <hr>
-       <h3 >Welcome to West Coast Sales</h3>  <br>
+       <h3 >Welcome to West Coast Autos</h3>  <br>
 
-<?php
-
-  
-if (!isset($_SESSION['activeusername'])) {
-  
-}else{
-	 
-$activeusername = $_SESSION['activeusername'];
-echo 	$activeusername;
-	
-}
-
-
-?>
 
 <table  class="gridtable">
   <tr>
-<th>Name</th>
+<th>Stocknumber</th>
 
-<th>Address</th>
-<th>Phone</th>
-<th>Email</th>
+<th>Customer Id</th>
+<th>Salesperon Id</th>
+<th>Date</th>
 
- <!--<th>Password</th>-->
+ 
  <th>Remove</th >
- <th>Update</th >
+ 
 <tr>
-
-
 
  
 <?php
  
-//if (!isset($_SESSION['activeusername'])) {
-  
-//}else{
-	
  
- 	
-	
-//$activeusername = $_SESSION['activeusername'];
-//echo 	$activeusername;
-	
-//}
 
  include("connect.php");
 
-$query = "SELECT * FROM Customers WHERE 1 ";
+$query = "SELECT * FROM Shoppingcart WHERE 1 ";
 $result = mysqli_query($con,$query);
 
  
  while ($row = mysqli_fetch_array($result))   :
 
-$firstname = $row['Fullname'];
+$firstname = $row['Stocknumber'];
  
-$email = $row['Address'];
-$phone = $row['Phone'];
-$property = $row['Email'];
+$email = $row['idCustomers'];
+$phone = $row['idSalespersons'];
+$property = $row['Date'];
  
-  
  
-// echo "<td>".$row['email']."</td>";
-//echo "<td>".$row['phone']."</td>";
-//echo "<td>".$row['username']."</td>";
 
 echo "<tr id=\"tr1\">";
-echo "<td>".$row['Fullname']."</td>";
-echo "<td>".$row['Address']."</td>";
- echo "<td>".$row['Phone']."</td>";
- echo "<td>".$row['Email']."</td>";
+echo "<td>".$row['Stocknumber']."</td>";
+echo "<td>".$row['idCustomers']."</td>";
+ echo "<td>".$row['idSalespersons']."</td>";
+ echo "<td>".$row['Date']."</td>";
  
  // echo "<td>".$row['password']."</td>";
   echo "<td> <input type=\"checkbox\" class=\"case\" name=\"case[]\" value=\"\1\" onclick=\"myfunc(this);\" onChange=\"cbChange(this)\"></td>";
-  echo "<td> <input type=\"checkbox\" class=\"updateinfo\" name=\"updateinfo[]\" value=\"\1\" onclick=\"myfunc(this);\" onChange=\"cbChange(this)\"></td>";
+   
 endwhile;
     
-	/* <?php $testr = $_POST['testcode']?> */
 	 
 	
-   //  $testr = document.getElementById('test').value;
-   // if( isset( $_POST ["test"] )) $testr = $_POST ["test"];
-	
-	//echo $testr;
-  
- // $testr = document.getElementById('test').value;
-  
-  
-  //   if(isset($_POST['updatename'])){
-	//	   $testr = $_POST['updatename'];
- //  echo $testr;
-       // echo("You clicked button update!");
-        //and then execute a sql query here
- //   $updateQuery =   mysql_query("UPDATE `clients` SET `username` = '".$testr."'");
-// }
- //   else {
- //   echo" dhur";
-  //  }
-	
-	
-   
-   if (isset($_POST['updatefullname'])) {
-	   //   echo("You clicked button one!");
-   $fullname  = $_POST['updatefullname'];
-  $address = $_POST['updateaddress'];
-  $phonenum = $_POST['updatephone']; 
-      $emailadd = $_POST['updateemail'];
-  //   $usrname = $_POST['updateusername']; 
-    $help = $_POST['updatehelp']; 
-   
- // echo $help;
- 
- // PRROBLEM MAYBE QUERY LISTING ALL ENTRYS
- 
- 
- $queryupdate = "UPDATE `Customers` SET `Fullname` = '".$fullname."', `Address` = '".$address."', `Phone` = '".$phonenum."', `Email` = '".$emailadd."'  WHERE `Email` = '".$help."'";	 
-
-  
-$updatedb = mysqli_query($con,$queryupdate);
-
- mysqli_close($con);
- 
- 
-   //   $updateQuery =    mysql_query("UPDATE `clients` SET `firstname` = '".$fname."', `lastname` = '".$lname."', `email` = '".$emailadd."', `phone` = '".$phonenum."', `property` = '".$propertys."', `username` = '".$usrname."' WHERE `username` = '".$help."'");
-  
-//  echo "<h1>Hello ".$testr."</h1>";
-    
-  
-// $query = mysql_query("SELECT * FROM clients WHERE username = '".$usrname."'");
- // while($row = mysql_fetch_array($query)):
- 
-  
-
- 
- 
-//endwhile;
-   } 
+	 
   
 ?>
 
 </table><br> 
 
-
-
-</div>
-
-  
-        
-        </div>
-        
  
-        
+ 
+ 
+ <br>
+ 
+<FORM name="something" method="post">
+  
+  <div class="col-sm-3 col-md-9 col-md-offset-2 col-lg-6 col-lg-offset-4">
+  <button type="button" class="btn btn-sm btn-default ce" onClick="window.location.href='addsales.php'" value="Log Out">Add</button> 
+    
+         <INPUT type="hidden"  id="hello1" name="sales"  class="emailaddr" >
+       <!--  <button type="submit"  name="url" class="btn btn-sm btn-default emailaddr" >Remove</button>-->
+        <INPUT type="submit" value="Remove" class="btn btn-sm btn-default">
+ <button type="button"  name="goback" onClick="window.location.href='employee.php'" class="btn btn-sm btn-default" >Go Back</button>
+         
+         <button type="button" class="btn btn-sm btn-default" onClick="window.location.href='employee.php?logout=1'" value="Log Out">Logout</button>      
+   </div>     
+ </FORM>    
      
-      
+</div>
+ 
+        </div>
+  
       <hr>
         <div class="row center-block">
     <div class="text-center col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-0 hello">
@@ -375,6 +324,75 @@ $updatedb = mysqli_query($con,$queryupdate);
 
 	<!-- Include all compiled plugins (below), or include individual files as needed --> 
 	<script src="../js/bootstrap.js"></script>
+    	<script src="../js/bootstrap.js"></script>
+    
+      <script type="text/javascript">
+	   
+     $('.updateinfo').click(function(event) {
+		 
+	$('.hideupdate').toggle();
+	 
+ 
+	 // var menu = "hide"; 
+  
+	// if (menu == "hide") {
+	// $('.hideupdate').css('display', 'block');
+	 
+	// menu = "hide";
+	 
+	// }else {
+		 
+	//	  $('.hideupdate').css('display', 'none');
+		  
+		//   menu = "show";
+	  
+	  
+	  
+	 //  }
+ 
+	   
+	  fullname = document.querySelector('.updatefullname'),
+	  address = document.querySelector('.updateaddress') ,
+	  phonenumber = document.querySelector('.updatephone') ,
+      email = document.querySelector('.updateemail') ,
+	  username = document.querySelector('.updateusername') ;
+	  
+	  updatehelp = document.querySelector('.updatehelp') ;  
+	//  passwd = document.querySelector('.updatepassword') ; 
+		 // phone = document.querySelector('$testr') 
+		       
+			    var select1 = event.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.textContent; 
+		
+				var select2 = event.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent; 
+				
+		      var select3 = event.target.parentNode.previousSibling.previousSibling.textContent; 
+			  
+			    var select4 = event.target.parentNode.previousSibling.previousSibling.previousSibling.textContent; 
+			   
+			//  var select5 = event.target.parentNode.previousSibling.previousSibling.previousSibling.textContent; 
+
+			  //   var select6 = event.target.parentNode.previousSibling.previousSibling.textContent; 
+				 
+		 //	  var select7 = event.target.parentNode.previousSibling.previousSibling.textContent;
+				// updatehelp
+				 
+				//   var select7 = event.target.parentNode.previousSibling.previousSibling.textContent; 
+			  
+		fullname.value =  select1 ;
+	 	address.value =  select2 ;
+	 	email.value =  select3 ;
+ 	   phonenumber.value = select4;
+	 	 
+		 
+     	 updatehelp.value = select3;
+		//  alert(select1);
+			  
+    
+		 
+ 
+      
+    });
+   </script>  
     <script type="text/javascript">
 $(document).ready(function() {
 	

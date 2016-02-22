@@ -389,7 +389,7 @@ echo "<option value=\"".$row['Stocknumber']."\">".$row['Year']. ' ' .$row['Manuf
     <fieldset class="account-action" >
     <input type="submit" value="Submit" name="submit" class="btn left">
   
-  <input type="button" value="Go Back"  onClick="window.location.href='customers.php'" class="btn right">
+  <input type="button" value="Go Back"  onClick="window.location.href='sales.php'" class="btn right">
      
   </fieldset>  
  
