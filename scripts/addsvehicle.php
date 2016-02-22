@@ -618,8 +618,7 @@ echo "<option value=\"".$row['Category']."\">". $row['Category'] . "</option>";
  <label>Transmission:<br>
 
   <select  name="transmission" >
-      <option value=""></option>
-    <option value="Automatic">Automatic</option>
+        <option value="Automatic">Automatic</option>
     <option value="Manual">Manual</option>
    
 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 20, 2016 at 07:05 PM
+-- Generation Time: Feb 22, 2016 at 05:48 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.2
 
@@ -66,8 +66,11 @@ CREATE TABLE `Customers` (
 --
 
 INSERT INTO `Customers` (`idCustomers`, `Fullname`, `Address`, `Phone`, `Email`) VALUES
-(2, 'Nolan Ryan', '123 Fake ST', '0421195886', 'nolanryan@bigpond.com'),
-(10, 'Alex Ryan', '123 Fake STreet', '242424424424', 'alex@alex.alexk');
+(1, 'Tom Brady', '123 Fake ST', '123456789', 'tombrady@nepatriots.com'),
+(2, 'Arron Rodgers', '321 Fake ST', '987654321', 'arronrodgers@gbpackers.com'),
+(3, 'Drew Brees', '231 Fake ST', '543219876', 'drewbrees@nosaints.com'),
+(4, 'Cam Newton', '132 Fake ST', '321987654', 'camnewton@cpanthers.com'),
+(5, 'Ben Roethlisberger', '312 Fake ST', '123459876', 'benroethlisberger@pbsteelers.com');
 
 -- --------------------------------------------------------
 
@@ -117,7 +120,8 @@ CREATE TABLE `Salespersons` (
 
 INSERT INTO `Salespersons` (`idSalespersons`, `Fullname`, `Phone`, `Email`, `Username`, `Password`) VALUES
 (1, 'Nolan Ryan', '0421195886', 'nolanryan@bigpond.com', 'ryann', '5f4dcc3b5aa765d61d8327deb882cf99'),
-(4, 'Alex Ryan', '242424', 'alex@bigpond.com', 'ryana', '5f4dcc3b5aa765d61d8327deb882cf99');
+(4, 'Alex Ryan', '2424242332', 'alex@bigpond.com', 'ryana', '5f4dcc3b5aa765d61d8327deb882cf99'),
+(5, 'James Sales', '123455432', 'jamessales@internet.com', 'jamess', '5f4dcc3b5aa765d61d8327deb882cf99');
 
 -- --------------------------------------------------------
 
@@ -138,8 +142,11 @@ CREATE TABLE `Shoppingcart` (
 --
 
 INSERT INTO `Shoppingcart` (`idShoppingcart`, `Stocknumber`, `idCustomers`, `idSalespersons`, `Date`) VALUES
-(1, 1000, 2, 1, '2015-02-07'),
-(2, 123456, 10, 4, '2016-02-19');
+(1, 1, 1, 4, '2016-02-22'),
+(2, 3, 2, 4, '2016-02-22'),
+(3, 11, 3, 1, '2016-02-22'),
+(4, 8, 4, 1, '2016-02-22'),
+(5, 5, 5, 1, '2016-02-22');
 
 -- --------------------------------------------------------
 
@@ -169,12 +176,16 @@ CREATE TABLE `Vehiclelist` (
 --
 
 INSERT INTO `Vehiclelist` (`Stocknumber`, `Manufacturer`, `Model`, `Category`, `Year`, `Price`, `Kilometres`, `Colour`, `Registration`, `Vin`, `Cylinders`, `Fuel`, `Transmission`, `special_price`) VALUES
-(1000, 'Audi', 'A4', 'Sedan', 2016, '25,000', '0', 'Black', '123456', '123456', 6, 'Petrol', 'Auto', ''),
-(123456, 'Audi', 'Cool', 'Sedan', 1998, '123455', '1234', 'Black', '12345', '12334', 6, 'Petrol', 'Auto', ''),
-(123457, 'Mitsubishi', 'Lanser', 'Sedan', 2000, '10000', '10000', 'Black', '112212', '21212122', 4, 'Petrol', 'Automatic', ''),
-(123467, 'Nissan', 'Z', 'Sedan', 2015, '50,000', '', 'Silver', '123456789', '123456789', 6, 'Petrol', 'Automatic', '40,000'),
-(123498, 'Holden', 'Commdore', 'Sedan', 2010, '20000', '2000', 'Silver', '12234', '1234', 6, 'Petrol', 'Automatic', ''),
-(123512, 'Audi', 'A4', 'Sedan', 2016, '50,000', '1', 'Silver', '12345', '12345', 6, 'Diesel', 'Automatic', '');
+(1, 'Ford', 'Focus', 'Sedan', 2010, '15,000', '45,000', 'Black', '123456789', '987654321', 4, 'Petrol', 'Automatic', ''),
+(3, 'Holden', 'Cruze', 'Sedan', 2012, '18,000', '20,000', 'Silver', '1237896554', '321456987', 4, 'Petrol', 'Manual', ''),
+(4, 'Mazda', '3', 'Sedan', 2008, '15,000', '67,000', 'White', '123852753', '357951456', 6, 'Petrol', 'Automatic', '12,000'),
+(5, 'Mitsubishi', 'Lancer', 'Wagon', 2010, '19,000', '81,000', 'Silver', '123753157', '359751456', 4, 'Petrol', 'Manual', ''),
+(6, 'Ford', 'Falcon', 'Sedan', 2014, '25,000', '16,000', 'Red', '123852654', '112547562', 6, 'Petrol', 'Automatic', ''),
+(7, 'Honda', 'Accord', 'Sedan', 2005, '12,000', '89,000', 'Silver', '741852357', '987159856', 6, 'Petrol', 'Automatic', ''),
+(8, 'Holden', 'Commodore', 'Sedan', 2011, '18,000', '78,000', 'Black', '357452916', '375216985', 6, 'Petrol', 'Automatic', '16,000'),
+(9, 'Mitsubishi', 'Magna', 'Sedan', 2001, '5,000', '100,000', 'Silver', '546385164', '159753212', 6, 'Petrol', 'Manual', ''),
+(10, 'Nissan', 'Pulsar', 'Sedan', 2012, '20,000', '30,000', 'White', '475329846', '384125687', 4, 'Petrol', 'Automatic', ''),
+(11, 'Mazda', '6', 'Sedan', 2014, '30,000', '10,000', 'Silver', '147249388', '125764134', 6, 'Petrol', 'Automatic', '');
 
 --
 -- Indexes for dumped tables
@@ -214,6 +225,7 @@ ALTER TABLE `Salespersons`
 --
 ALTER TABLE `Shoppingcart`
   ADD PRIMARY KEY (`idShoppingcart`,`Stocknumber`,`idCustomers`,`idSalespersons`),
+  ADD UNIQUE KEY `Stocknumber` (`Stocknumber`),
   ADD KEY `Stocknumber_idx` (`Stocknumber`),
   ADD KEY `idCustomers_idx` (`idCustomers`),
   ADD KEY `idSalespersons_idx` (`idSalespersons`);
@@ -242,7 +254,7 @@ ALTER TABLE `Category`
 -- AUTO_INCREMENT for table `Customers`
 --
 ALTER TABLE `Customers`
-  MODIFY `idCustomers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idCustomers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `Manufacturer`
 --
@@ -252,17 +264,17 @@ ALTER TABLE `Manufacturer`
 -- AUTO_INCREMENT for table `Salespersons`
 --
 ALTER TABLE `Salespersons`
-  MODIFY `idSalespersons` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idSalespersons` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `Shoppingcart`
 --
 ALTER TABLE `Shoppingcart`
-  MODIFY `idShoppingcart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idShoppingcart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `Vehiclelist`
 --
 ALTER TABLE `Vehiclelist`
-  MODIFY `Stocknumber` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123513;
+  MODIFY `Stocknumber` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- Constraints for dumped tables
 --
