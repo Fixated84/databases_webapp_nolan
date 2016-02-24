@@ -36,7 +36,7 @@ $updatedb = mysqli_query($con,$queryupdate);
 
 
 
-    <title>West Coast Auto</title>
+    <title>West Coast Auto - Specials List</title>
     <!-- Bootstrap -->
   <link href="../css/bootstrap.css" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">

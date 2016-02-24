@@ -186,7 +186,7 @@ localStorage['lastTime2'] = ""+now;
 
 </script>
 
-    <title>West Coast Auto</title>
+    <title>West Coast Auto - Add Salesperson</title>
     <!-- Bootstrap -->
   <link href="../css/bootstrap.css" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">
@@ -339,7 +339,7 @@ localStorage['lastTime2'] = ""+now;
         
         <div class="col-sm-7 col-sm-offset-1 col-lg-offset-1 col-lg-10">
          <hr>
-       <h3 >West Coast Auto Salesperons Form</h3>  <br>
+       <h3 >West Coast Auto - Add Salesperson</h3>  <br>
 
     
     <form class="loginform"   method="post">

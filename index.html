@@ -6,36 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="images/icon.ico">
 
-<!--<script type="text/javascript">
-jQuery(document).ready(function($){
- 
-if (sessionStorage.getItem('RockrollOnce') !== 'true') {
-<!--$('body').append('<body>')
-    $("body").removeAttr("onLoad");
-sessionStorage.setItem('RockrollOnce','true');
-}
- 
- 
- 
-});
-</script>-->
-	<script src="js/jquery-1.11.2.min.js"></script>
-<script type="text/javascript">//<![CDATA[
-$(document).ready(function() {
-var now = (new Date()).getTime();
-var lastTime = 0;
-var lastTimeStr = localStorage['lastTime2'];
-if (lastTimeStr) lastTime = parseInt(lastTimeStr, 30);
-if (now - lastTime > 1*60*1000) {
-// alert("I am an alert box!");
-  //  $("body").removeAttr("onLoad");
-  //$("body").
-   $("body").attr("onLoad","$('#myModal').modal('show');");
-} 
-localStorage['lastTime2'] = ""+now;
-});//]]> 
 
-</script>
+	
 
     <title>West Coast Auto</title>
     <!-- Bootstrap -->
@@ -48,7 +20,7 @@ localStorage['lastTime2'] = ""+now;
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
   </head>
-  <body onLoad="" >
+  <body>
   
    <!--Testing Fix Nav with navbar-fixed-top-->
   <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -195,7 +167,7 @@ localStorage['lastTime2'] = ""+now;
         
         <div class="col-sm-7 col-sm-offset-1 col-lg-offset-1 col-lg-10">
          <hr>
-       <h3 >Welcome to West Coast Autos</h3>  <br>
+       <h3 >Welcome to West Coast Auto</h3>  <br>
 
  
   
@@ -205,33 +177,28 @@ localStorage['lastTime2'] = ""+now;
  var day = new Date();
  var hr = day.getHours();
  if ((hr == 1) ||(hr == 2) || (hr == 3) || (hr == 4) ||(hr == 5)) {
- document.write("Good morning! Welcome AllStyle Homes website.");
+ document.write("Good morning! Welcome to West Coast Auto website.");
 }
  
  if ((hr == 6) || (hr == 7) || (hr == 8) || (hr == 9) || (hr == 10) || (hr == 11)){
- document.write("Good Morning! Welcome AllStyle Homes website.");
+ document.write("Good Morning! Welcome to West Coast Auto website.");
 }
  
  if ((hr == 12) || (hr == 13) || (hr == 14) ||(hr == 15) || (hr == 16)){
- document.write("Good Afternoon!  Welcome AllStyle Homes website.");
+ document.write("Good Afternoon!  Welcome to West Coast Auto website.");
 }
  
  if ((hr == 17) || (hr == 18) || (hr == 19) || (hr == 20) || (hr == 21) || (hr == 22) || (hr == 23)){
- document.write("Good Evening! Welcome AllStyle Homes website.");
+ document.write("Good Evening! Welcome to West Coast Auto website.");
 }
    
  if (hr==0) {
- document.write("Good Morning! Welcome AllStyle Homes website.");
+ document.write("Good Morning! Welcome to West Coast Auto website.");
 }
  
  </script> 	
-   If you are looking for a Bundaberg based new home builder, with lots of new home designs and a display home, then look no further.   We have new hundreds of home designs to choose from, or we will even build your own design. So take your time and look around our website, we hope that it will provide you with a taste of what is on offer at AllStyle Homes here in Bundaberg.  
-
-
- 
-  
-  We have numerous design options to suit your needs and wishes to help fulfill that dream of building your new home.
-   Our knowledgeadble and professional team will be able to answer all of your questions and assist you in finalizing your design to suit your land, lifestyle and your budget. So give us a call any time, or click on the contact tab to send us an email.</p>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ornare fringilla nisl, et pellentesque ante efficitur sed. Sed feugiat lobortis enim, non consequat metus semper vitae. Duis sagittis sapien a purus porttitor, ut fringilla ante hendrerit. Nulla posuere lorem et sapien lacinia, sit amet ultrices tellus egestas. Quisque volutpat tortor non lacus mattis, quis pretium erat rhoncus. Maecenas efficitur quam nec tortor aliquet, vitae maximus augue auctor. Aliquam feugiat enim magna, quis consectetur sapien euismod sed. Suspendisse non urna et elit placerat tempus id a lacus. Cras sed ante neque. Suspendisse non arcu eu orci faucibus elementum id a sapien. Mauris congue justo sit amet scelerisque ultrices.<br><br>
+  Vivamus elementum tristique libero, a malesuada arcu sollicitudin eu. Nullam sed risus ut massa vehicula malesuada. Fusce tincidunt lorem urna, eget tincidunt nulla ornare ut. Duis aliquet ipsum eu purus egestas, vel ornare neque blandit. Integer commodo lectus vel pretium dictum. Aenean sed diam arcu. Cras mattis, ante et laoreet condimentum, mauris nisi convallis odio, id hendrerit turpis dui eu dui. Pellentesque a ullamcorper urna, in tincidunt nulla. In efficitur sed risus et semper. Suspendisse eros urna, tristique eget nibh eu, blandit pharetra tortor. Sed iaculis lobortis diam vel commodo.</p>
   <!-- Button trigger modal -->
 <!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
   Click Me
@@ -262,11 +229,7 @@ function myFunction() {
     </div>
   </div>
 </div>
-
  
-
-
-
 <br>
 
 
@@ -275,11 +238,7 @@ function myFunction() {
         
         </div>
         
-  
-        
-        
-        
-        
+         
       </div>
       
       <hr>
@@ -363,31 +322,8 @@ $(document).ready(function() {
 	});   
 });
 </script>
- <!--    <script type="text/javascript">
-$('#myModal').on('shown.bs.modal', function () {
-  $('#myInput').focus()
-  
- document.getElementsByClassName("rickroll").item("iframe").src = "http://www.youtube.com/embed/dQw4w9WgXcQ?html5=1&autoplay=1";
 
-  
-})
-</script> -->
 
-<script type="text/javascript">
-$('#myModal').on('shown.bs.modal', function () {
-      
-        $('#myModal').modal('show');
-       
-   document.getElementsByClassName("rickroll").item("iframe").src = "https://www.youtube.com/embed/dQw4w9WgXcQ?html5=1&autoplay=1";
-    });
-
-    $('#myModal').click(function () {
-      document.getElementsByClassName("rickroll").item("iframe").src = "1";
- 
-  
-    });
-</script>
- 
 
 
   </body>

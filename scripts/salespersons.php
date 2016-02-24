@@ -34,7 +34,7 @@ $updatedb = mysqli_query($con,$queryremove);
  
  
 
-    <title>West Coast Auto</title>
+    <title>West Coast Auto Salesperson List</title>
     <!-- Bootstrap -->
   <link href="../css/bootstrap.css" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">
@@ -227,7 +227,7 @@ var btns = document.querySelectorAll('.case')   ,
         
         <div class="col-sm-7 col-sm-offset-1 col-lg-offset-1 col-lg-10">
          <hr>
-       <h3 >West Coast Autos Salepersons</h3>  <br>
+       <h3 >West Coast Autos Saleperson List</h3>  <br>
 
 
 <table  class="gridtable">

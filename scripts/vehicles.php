@@ -224,7 +224,7 @@ window.onorientationchange = function() { location.reload() };
 	  // First Row for stocknumber 1
 	 include("connect.php");
 
-$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '1000' ";
+$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '1' ";
 $result = mysqli_query($con,$query);
 
  
@@ -251,7 +251,7 @@ echo "<p><strong>$year $make $model $category $colour</strong></p>";
         <?php     
  include("connect.php");
 
-$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '1000' ";
+$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '1' ";
 $result = mysqli_query($con,$query);
 
  
@@ -285,7 +285,7 @@ echo "<p><strong>$$price</strong></p>";
     <?php
 	 include("connect.php");
 
-$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '1000' ";
+$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '1' ";
 $result = mysqli_query($con,$query);
 
  
@@ -322,7 +322,7 @@ echo "<div id=\"".$stockno."\" class=\"imagemap\">";
         <?php
 		 include("connect.php");
 
-$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '1000' ";
+$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '1' ";
 $result = mysqli_query($con,$query);
 
  
@@ -360,7 +360,7 @@ $stockno = $row['Stocknumber'];
  
  	 include("connect.php");
 
-$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '1000' ";
+$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '1' ";
 $result = mysqli_query($con,$query);
 
  
@@ -435,7 +435,7 @@ $stockno = $row['Stocknumber'];
 	
  	 include("connect.php");
 
-$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '123456' ";
+$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '3' ";
 $result = mysqli_query($con,$query);
 
  
@@ -471,7 +471,7 @@ echo "<p class=\"lefty\"><strong>$year $make $model $category $colour</strong></
 
  	 include("connect.php");
 
-$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '123456' ";
+$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '3' ";
 $result = mysqli_query($con,$query);
 
  
@@ -515,7 +515,7 @@ echo "<div id=\"".$stockno."\" class=\"imagemap\">";
 
  	 include("connect.php");
 
-$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '123456' ";
+$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '3' ";
 $result = mysqli_query($con,$query);
 
  
@@ -555,7 +555,7 @@ $price = $row['Price'];
 
  	 include("connect.php");
 
-$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '123456' ";
+$query = "SELECT * FROM Vehiclelist WHERE `Stocknumber` = '3' ";
 $result = mysqli_query($con,$query);
 
  
